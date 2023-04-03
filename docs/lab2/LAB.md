@@ -1,10 +1,10 @@
-# 💻 Lab 2 - Generate an Angular app
+# 💻 Lab 2 - Generate a Node API
 
 ###### ⏰ Estimated time: 15-20 minutes
 
 <br />
 
-In this lab we'll generate our first Angular application within the new monorepo.
+In this lab we'll generate a Node API within the new monorepo.
 <br /><br />
 
 ## 📚 Learning outcomes:
@@ -32,64 +32,39 @@ In this lab we'll generate our first Angular application within the new monorepo
    - install the CLI globally: `npm i -g nx`
    - if you don't want to install it globally, use `npx nx` instead of `nx` in all the commands below
 
-> Please make sure you are using the latest version of Nx (14.5+)
+> Please make sure you are using the latest version of Nx (15.8+)
 
    <br />
 
 2. **Run `nx list`** to see which plugins you have installed and which are available
    <br /> <br />
 
-3. **Add the Angular plugin: `@nrwl/angular`**
+3. **Add the Node plugin: `@nrwl/node`**
    <br /> <br />
 
-4. Let's also **add Angular Material** so we can use some of their components: `@angular/material @angular/cdk`
+4. Let's also **add Express**: `express`
    <br /> <br />
-5. **Use the [`@nrwl/angular` plugin](https://nx.dev/packages/angular/generators/application) to generate an Angular app** called `store` in your new workspace
+5. **Use the [`@nrwl/node` plugin](https://nx.dev/packages/node/generators/application) to generate a Node app** called `api` in your new workspace
 
-   ⚠️**Important:** Make sure you **enable routing** when asked!
-
-   <details>
-   <summary>🐳 Hint</summary>
-   <img src="../assets/lab2_cmds.png" alt="Nx generate cmd structure">
-   </details>
+   ⚠️**Important:** Make sure you choose **express** as the framework when asked!
    <br />
 
-6. **Create a new `index.ts` file in the folder `apps/store/src/fake-api`** in your app, it returns an array of some games (you can copy the code from [here](../../examples/lab2/apps/store/src/fake-api/index.ts))
+6. **Create a new `games.repository.ts` file in the folder `apps/api/src/app`** in your app, it returns an array of some games (you can copy the code from [here](../../examples/lab2/apps/api/src/app/games.repository.ts))
 
    ⏳**Reminder:** When you are given example files to copy, the folder they're in hints to the _folder_ and _filename_ you can place them in when you do the copying.
    <br /> <br />
 
-7. **Add some basic styling to your new component** and display the games from the Fake API (to not spend too much time on this, you can copy it from here [.html](../../examples/lab2/apps/store/src/app/app.component.html) / [.css](../../examples/lab2/apps/store/src/app/app.component.css) / [.ts](../../examples/lab2/apps/store/src/app/app.component.ts) - and replace the full contents of the files)
-
-   - You can get the example game images from [here](../../examples/lab2/apps/store/src/assets)
-     <br />⚠️ Make sure you put them in the correct folder
+7. **Update the main.ts file** to include some new endpoints (do not spend too much time on this, you can copy it from here [main.ts](../../examples/lab2/apps/api/src/main.ts) - and replace the full contents of the file)
      <br /> <br />
 
-8. **Add the Material Card Module to `app.module.ts`**:
-
-   ```ts
-   import { MatCardModule } from '@angular/material/card';
-   ```
-
-   Don't forget to add it to the imports section as well.
+8. **Serve the app**: `nx serve api`
    <br /> <br />
 
-9. **Serve the app**: `nx serve store`
-   <br /> <br />
-
-10. **See your app** live at [http://localhost:4200/](http://localhost:4200/)
-
-⚠️ In a company context you might need to define a hostname `nx serve store --host=my.host.name `
+9. **See your games endpoint** live at [http://localhost:4200/](http://localhost:4200/api/games)
 <br /> <br />
 
-12. **Inspect what changed** from the last time you committed, then **commit your changes**
+10. **Inspect what changed** from the last time you committed, then **commit your changes**
     <br /> <br />
-
----
-
-Now we're starting to see some content! But there are some styles missing: the Angular Material theme! We'll look at how to add it in the next workshop!
-
-The ratings also don't look that good - we'll fix those in **Lab 5**.
 
 ---
 

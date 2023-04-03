@@ -1,11 +1,10 @@
-# 💻 Lab 5 - Generate a utility lib
+# 💻 Lab 5 - Generate an auth library
 
 ###### ⏰ Estimated time: 5-10 minutes
 <br />
 
-Let's fix the ratings! They don't look that good and they could benefit from some formatting.
+Let's create a library to handle all the authentication logic.  For this workshop, we'll just export some functions but, in a real app, this is where you'd hook into whatever service is handling your auth or you could write your own logic here.
 
-We will create a shared utility lib where we'll add our formatters and see how to import them in our components afterwards.
 <br /><br />
 
 ## 📚 Learning outcomes:
@@ -27,42 +26,34 @@ We will create a shared utility lib where we'll add our formatters and see how t
 
 ## 🏋️‍♀️ Steps:
 
-1. **Stop the `nx serve`**
+1. **Stop the `nx serve`** if it is still running
    <br /><br />
-2. **Use the `@nrwl/js` package to generate another lib** in the `libs/store` folder - let's call it `util-formatters`.
+2. **Use the `@nrwl/js` package to generate another lib** in the `libs/api` folder - let's call it `auth`.
    <br /><br />
-3. **Add the [code for the utility function](../../examples/lab5/libs/store/util-formatters/src/lib/store-util-formatters.ts)** to the new library you just created `libs/store/util-formatters/src/lib/store-util-formatters.ts`
+3. **Add the [code for the auth library](../../examples/lab5/libs/api/auth/src/lib/api-auth.ts)** to the new library you just created `libs/api/auth/src/lib/api-auth.ts`
    <br /><br />
-4. **Use it in your frontend project** to format the rating for each game
+4. **Use it in your api** by creating a new `/auth` endpoint ([code](../../examples/lab5/apps/api/src/main.ts))
 
     <details>
     <summary>🐳 Hint</summary>
 
-   `app.component.ts`:
+   `main.ts`:
 
    ```ts
-   import { formatRating } from '@bg-hoard/store/util-formatters';
+   import { doAuth } from '@bg-hoard/api/auth';
+   //...
 
-   export class AppComponent {
-     //...
-     formatRating = formatRating;
-   }
-   ```
-
-   `app.component.html`:
-
-   ```html
-   {{ formatRating(game.rating) }}
+   app.post('/api/auth', (req, res) => {
+      res.send(doAuth());
+   });
    ```
 
     </details>
    <br />
 
-5. Serve the store app - notice how the ratings are formatted.
+5. Launch the project graph - notice how the app depends on the `auth` lib now.
    <br /><br />
-6. Launch the project graph - notice how the app depends on two libs now.
-   <br /><br />
-7. Inspect what changed from the last time you committed, then commit your changes
+6. Inspect what changed from the last time you committed, then commit your changes
    <br /><br />
 
 ---

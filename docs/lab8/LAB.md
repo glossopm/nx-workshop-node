@@ -1,97 +1,68 @@
-# 💻 Lab 8 - Displaying a full game in the routed game-detail component
+# 💡 Lab 8 - Module boundaries
 
-###### ⏰ Estimated time: 15-20 minutes
+###### ⏰ Estimated time: 10-15 minutes
 
-<br />
-
-Now we have a proper API that we can use to make HTTP requests. We'll look at how the Nrwl NestJS generators created a helpful proxy configuration for us.
 <br /><br />
 
 ## 📚 Learning outcomes:
 
-- **Learn how to connect frontend and backend apps in an Nx workspace**
+- **Understand how to assign scopes and type tags to your libraries**
+- **How to specify boundaries around your tags and avoid circular dependencies in your repo**
+- **How to use linting to trigger warnings or errors when you are not respecting these boundaries**
   <br /><br /><br />
 
-## 📲 After this workshop, you should have:
+## 🏋️‍♀️ Steps :
 
-<details>
-  <summary>App screenshot</summary>
-  <img src="../assets/lab8_screenshot.png" width="500" alt="screenshot of lab8 result">
-</details>
-<br />
+1. Open the `project.json` files for each project and **finish tagging the apps** accordingly:
 
-## 🏋️‍♀️ Steps:
-
-1. **Import the `HttpClientModule`** in `apps/store/src/app/app.module.ts` and add it to the module's imports array:
-
-   <details>
-   <summary>🐳 Hint</summary>
-
-   ```ts
-   import { HttpClientModule } from '@angular/common/http';
+   ```
+     // apps/cli/project.json
+     {
+       "projectType": "application",
+       "root": "apps/cli",
+       "sourceRoot": "apps/cli/src",
+       "prefix": "bg-hoard",
+       "targets": { ... },
+       "tags": ["scope:cli", "type:app"]
+     }
    ```
 
-   </details>
-   <br />
-
-2. Within the same folder, **inject the `HttpClient`** in the [app.component.ts](../../examples/lab8/apps/store/src/app/app.component.ts)'s constructor and **call your new API** as an _HTTP request_
-
-   ⚠️ _Notice how we assume it will be available at `/api` (more on that below)_
    <br /><br />
 
-3. Because our list of `games` is now an Observable, we need to **add an `async` pipe** in the template that gets the games:
+2. Open the root `.eslintrc.json`, find the `"@nrwl/nx/enforce-module-boundaries"` rule and **set the `depConstraints`**:
 
-   <details>
-   <summary>🐳 Hint</summary>
-
-   ```html
-   <mat-card
-     class="game-card"
-     *ngFor="let game of games | async" <--HERE
-     [routerLink]="['/game', game.id]"
-     >...</mat-card
-   >
+   ```
+   "depConstraints": [
+       {
+           "sourceTag": "scope:cli",
+           "onlyDependOnLibsWithTags": ["scope:cli", "scope:shared"]
+       },
+       .... <-- finish adding constraints for the tags we defined in the previous step
+   ]
    ```
 
-   </details>
-   <br />
-
-4. **Run `nx serve api`**
-
-   ⚠️ Notice the _PORT_ number
    <br /><br />
 
-5. In a different tab, **run `nx serve store`**
+3. **Run `nx run-many --target=lint --all --parallel`**
 
-   ⚠️ Again, notice the _PORT_ number
+   💡 `nx run-many` allows you to run a specific target against a specific set of projects
+   via the `--projects=[..]` option. However, you can also pass it the `--all` option
+   to run that target against all projects in your workspace.
+
+   💡 `--parallel` launches all the `lint` processes in parallel
    <br /><br />
 
-6. Everything should still look/function the same!
-
-   🎓 You can inspect your Network tab in the dev tools and notice an XHR request made to `http://localhost:4200/api/games`
+4. We talked about the importance of setting boundaries between your workspace scopes.
+   Let's try and **import an `api` lib** from a `cli` scope. - In `apps/cli/src/main.ts` - Try to `import { doAuth } from '@bg-hoard/api/auth';`
    <br /><br />
 
----
-
-🎓 Even though the frontend and server are being exposed at different ports, we can call `/api` from the frontend store because `Nx` created a proxy configuration for us (see `apps/store/proxy.conf.json`) so any calls to `/api` are being routed to the correct address/port where the API is running.
-This helps you avoid CORS issues while developing locally.
-
----
-
-Now let's load the full game in our routed component!
-
-8. Inside the `libs/store/feature-game-detail/src/lib` folder, **replace the following files**:
-
-   - `/game-detail/game-detail.component.` [ts](../../examples/lab8/libs/store/feature-game-detail/src/lib/game-detail/game-detail.component.ts) / [html](../../examples/lab8/libs/store/feature-game-detail/src/lib/game-detail/game-detail.component.html)
-   - [/store-feature-game-detail.module.ts](../../examples/lab8/libs/store/feature-game-detail/src/lib/store-feature-game-detail.module.ts)
-
-   ⚠️ Notice how we're using the shared `formatRating()` function in our routed component as well!
+5. **Run linting** on all projects - you should see the expected error.
    <br /><br />
-
-9. You should now see a fully-fleshed out detail component when you link on the card list at the top! (you might need to restart your `nx serve store` so the new button styles can be copied over)
+6. You can now **delete the import** above.
    <br /><br />
-10. **Inspect what changed** from the last time you committed, then **commit your changes**
-    <br /><br />
+7.  **Run linting** again and check if all the errors went away.
+   <br /><br />
+8.  **Commit everything** before moving on to the next lab
 
 ---
 
@@ -99,4 +70,4 @@ Now let's load the full game in our routed component!
 
 ---
 
-[➡️ Next lab ➡️](../lab9/LAB.md)
+[➡️ Next lab ➡️](../lab13/LAB.md)

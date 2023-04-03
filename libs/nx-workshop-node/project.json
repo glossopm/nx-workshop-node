@@ -1,0 +1,72 @@
+{
+  "name": "nx-workshop-node",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/nx-workshop-node/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/nx-workshop-node/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/nx-workshop-node"],
+      "options": {
+        "jestConfig": "libs/nx-workshop-node/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/nx-workshop-node",
+        "tsConfig": "libs/nx-workshop-node/tsconfig.lib.json",
+        "packageJson": "libs/nx-workshop-node/package.json",
+        "main": "libs/nx-workshop-node/src/index.ts",
+        "assets": [
+          "libs/nx-workshop-node/*.md",
+          {
+            "input": "./libs/nx-workshop-node/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./libs/nx-workshop-node/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./libs/nx-workshop-node",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./libs/nx-workshop-node",
+            "glob": "executors.json",
+            "output": "."
+          },
+          {
+            "input": "./libs/nx-workshop-node",
+            "glob": "migrations.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "parallel": false,
+        "commands": [
+          "npm publish dist/libs/nx-workshop-node"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,148 +1,178 @@
-# 💻 Lab 9 - Generate a type lib that the API and frontend can share
+# 🧸️ Lab 9 - Workspace Plugins and Generators - Intro
 
-###### ⏰ Estimated time: 15 minutes
+###### ⏰ Estimated time: 20-25 minutes
 
 <br />
-
-Now our project graph looks a bit disconnected. The frontend and the API still do not have anything in common. The power of Nx libraries is that they can be shared among any number of projects.
-
-We'll look at creating libs to store Typescript interfaces and then we'll use the Nx **Move** generator to move that library around our project, with minimal effort.
-<br /><br />
 
 ## 📚 Learning outcomes:
 
-- **Explore other real-world examples of creating shared libs for a specific project**
-- **Learn to use the `move` generator**
-  <br /><br /><br />
+- Understand what an internal plugin is
+- Understanding generators in internal plugin, including:
+  - How to create them
+  - How to invoke them
+  - How to use one to simplify usages of other, more powerful generators
+    <br /><br /><br />
 
-## 📲 After this workshop, you should have:
+## 🏋️‍♀️ Steps :
 
-<details>
-  <summary>App Screenshot</summary>
-  No change in how the app looks!
-</details>
+We just learned how important tags are. But we don't want to constantly and manually
+have to maintain them. In this workshop, we'll create an internal plugin called
+`internal-plugin`, and create a `library generator` for this plugin that knows
+about the folders in our workspace and automatically tags the new project with a correct
+scope and type tag.
 
-<details>
-  <summary>File structure</summary>
-  <img src="../assets/lab9_directory-structure.png" height="700" alt="lab9 file structure">
-</details>
-<br />
+1.  Use the `@nrwl/nx-plugin:plugin` generator to generate a new plugin called
+    `internal-plugin`.<br /> 
+    Make sure that the `minimal` option is set.
+    <br /> <br />
 
-## 🏋️‍♀️ Steps:
+2.  Use the `@nrwl/nx-plugin:generator` generator to generate a new generator called
+    `util-lib`.
+    <br /> <br />
 
-1. **Stop serving** both the API and the frontend
-   <br /><br />
-2. **Generate a new `@nrwl/js` lib** called `util-interface` inside the `libs/api` folder.
+3.  Inspect the files that got generated and then commit everything.
+    <br /> <br />
 
-   ⚠️ It's **important** that we create it in the `/api` folder for now
-   <br /><br />
+4.  Try to run your generator (you can append `--dry-run` to avoid reverting using Git)
 
-3. **Create your `Game` interface**: see `libs/api/util-interface/src/lib/`[api-util-interface.ts](../../examples/lab9/libs/api/util-interface/src/lib/api-util-interface.ts)
-   <br /><br />
-4. **Import it** in the API service: `apps/api/src/app/app.service.ts`
+    <details>
+    <summary>🐳 Hint</summary>
 
-   ⚠️ You might need to restart the Typescript compiler in your editor
+    Run `npx nx list` to see your newly created plugin in the list of installed plugins:
 
-   <details>
-   <summary>🐳 Hint</summary>
+    ```shell
+    % npx nx list
 
-   ```typescript
-   import { Game } from '@bg-hoard/api/util-interface';
-   const games: Game[] = [...];
-   ```
+    >  NX   Local workspace plugins:
 
-   </details>
-   <br />
+        @bg-hoard/internal-plugin (generators)
+    ```
 
-5. **Build the API** and make sure there are no errors
+    Run `npx nx list @bg-hoard/internal-plugin` to see our generator details:
 
-   <details>
-   <summary>🐳 Hint</summary>
+    ```shell
+    % npx nx list @bg-hoard/internal-plugin
 
-   ```shell
-   nx build api
-   ```
+    >  NX   Capabilities in @bg-hoard/internal-plugin:
 
-   </details>
-   <br />
+      GENERATORS
 
-6. **Inspect the project graph**
-   <br /><br />
-7. Make sure to **commit everything** before proceeding!
-   <br /><br />
+      util-lib : util-lib generator
+    ```
 
----
+    You call generators from this local plugin using the same syntax you would with any plugin:
 
-Our frontend store makes calls to the API via the `HttpClient` service:
+    ```shell
+    nx generate <plugin name>:<generator name> [...options]
+    ```
 
-```typescript
-this.http.get<any>(`/api/games/${id}`);
-```
+    </details>
 
-But it's currently typed to `any` - so our component has no idea about the shape of the objects it'll get back!
+    ⚠️ The code we generated creates a very bare-bones new library, with only a `project.json` and a `src/index.ts` file; you will see these files created if you run it.
+     You can use Git to undo those changes (hence why it's recommended to commit before running a generator).
+    <br /> <br />
 
-Let's fix that - we already have a `Game` interface in a lib. But it's nested in the `api` folder - we need to move it out to the root `libs/` folder so any project can use it!
+5.  We can call other generators inside of our custom generator. Import the `@nrwl/js:library` generator and call it inside of the default exported function of `libs/internal-plugin/src/generators/util-lib/generator.ts`
 
----
+    <details>
+    <summary>🐳 Hint</summary>
 
-8.  Use the `@nrwl/workspace:move` generator to **move the interface lib** created above into the root `/libs` folder
+    ```typescript
+    import { libraryGenerator } from '@nrwl/workspace/generators';
 
-    ⚠️ Make sure you use the `--dry-run` flag until you're confident your command is correct
+    export default async function (tree: Tree, schema: UtilLibGeneratorSchema) {
+      await libraryGenerator(tree, schema);
+      // ...
+    }
+    ```
+    </details>
 
-     <details>
-     <summary>🐳 Hint 1</summary>
-     <img src="../assets/lab2_cmds.png" alt="Nx generate cmd structure">
-     </details>
+6.  In `libs/internal-plugin/src/generators/util-lib/generator.ts` try to make it `console.log()` the value of the `--name` property you passed to it (can use `--dry-run` again to test it)
+    <br /> <br />
 
-     <details>
-     <summary>🐳 Hint 2</summary>
+7.  Now that we're more familiar with how command line options are passed to the generator,
+    **let's revert all locally generated files**, as we're about to start making actually useful changes to the generator.
+    <br /> <br />
 
-    Use the `--help` command to figure out how to target a specific **project**
-    Alternatively, check out the [docs](https://nx.dev/packages/workspace/generators/move)
+8.  The generator should prefix any name you give to your lib with `util-`
 
-     </details>
+    For example:
 
-     <details>
+    - `nx generate @bg-hoard/internal-plugin:util-lib dates`
+    - Should generate a lib with the name `util-dates`
 
-     <summary>🐳 Hint 3</summary>
+    ⚠️ You can keep trying out your changes safely with the `--dry-run` flag.️
+    <br /> <br />
 
-    Your library name is `api-util-interface` - to move it to root, its new name needs to be `util-interface`
+9.  Add a new property to its schema called `directory`. It should have only 3 possible values:
+    `"cli", "api", "shared"`. If you do not pass `--directory` as an option when invoking the
+    schema it should prompt the user to select from the 3 different values (similar to when you got
+    asked about which CSS framework to use when creating Angular libs).
 
-     </details>
+    <details>
+    <summary>🐳 Hint</summary>
+
+    [Adding dynamic prompts](https://nx.dev/recipes/generators/generator-options#adding-dynamic-prompts)
+
+    </details>
     <br />
 
-9.  We can now **import it in the frontend components** and use it when making the `http` request:
+10. The generator should generate the lib in the directory you pass to it.
+    <br /> <br />
 
-     <details>
-     <summary>🐳 Hint</summary>
+11. Because it's a `util` lib, it should automatically be generated with the `type:util` tags.
 
-    Frontend store shell app: `apps/store/src/app/app.component.ts`
+    <details>
+    <summary>🐳 Hint</summary>
 
-    ```typescript
-    import { Game } from '@bg-hoard/util-interface';
+    Consult the `@nrwl/js:lib` [docs](https://nx.dev/packages/js/generators/library)
+    for possible options you can pass to it.
 
-    this.http.get<Game[]>('/api/games');
-    ```
+    </details>
+    <br />
 
-    ***
+12. We also need to add `scope` tag to it. We can use the `directory` value for this, since it signifies our scope.
+    <br /> <br />
 
-    Routed game detail component: `libs/store/feature-game-detail/src/lib/game-detail/game-detail.component.ts`
+13. Before testing your changes, remember to commit them, in case you need to revert
+    locally generated files again.
+    <br /> <br />
 
-    ```typescript
-    this.http.get<Game>(`/api/games/${id}`);
-    ```
+14. Invoke your generator and test if the above requirements work
 
-     </details>
+    - Let's give it the name `notifications`
+    - Select `api` as the directory
+      <br /> <br />
 
-    ⚠️ Open `apps/api/src/app/app.service.ts`. Notice how we didn't have to update the imports in the API. The `move` generator took care of that for us!
-    <br /><br />
+15. Let's add some functionality to the lib you just created:
 
-10. **Trigger a build** of both the store and the API projects and make sure it passes
-    <br /><br />
-11. **Inspect the project graph**
-    <br /><br />
-12. **Inspect what changed** from the last time you committed, then **commit your changes**
-    <br /><br />
+    - In `libs/api/util-notifications/src/lib/api-util-notifications.ts`
+    - Add:
+      ```typescript
+      export function sendNotification(clientId: string) {
+        console.log('sending notification to client: ', clientId);
+      }
+      ```
+
+16. Now try to import the above function in `apps/api/src/app/app.service.ts`
+    - Try to lint all the apps
+    - It should work because everything is in the `api` scope
+      <br /> <br />
+17. Try to import it in `apps/cli/src/app/app.component.ts`
+    - It should fail because it's not within the same scope
+      <br /> <br />
+18. In `libs/api/util-notifications/src/lib/api-util-notifications.ts`
+    - Try to import a `feature` lib
+    - It should correctly fail because the type hierarchy is not respected
+      <br /> <br />
+19. **BONUS -** A `generator.spec.ts` file was created when we ran our generator. Try writing some meaningful tests for this generator.
+    <br /> <br />
+
+20. **BONUS BONUS** - try to create another similar generator, but for "feature" libs.
+    <br /> <br />
+
+21. Commit everything before the next lab.
+    <br /> <br />
 
 ---
 
@@ -150,4 +180,4 @@ Let's fix that - we already have a `Game` interface in a lib. But it's nested in
 
 ---
 
-[➡️ Next lab ➡️](../lab10%20-%20bonus/LAB.md)
+[➡️ Next lab ➡️](../lab14/LAB.md)

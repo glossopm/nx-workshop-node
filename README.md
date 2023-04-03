@@ -43,15 +43,6 @@ Make sure you have the following installed:
 - A Github account
   - http://github.com
 
-For day 2, option 2 only:
-
-- A Fly.io account
-  - https://fly.io/
-  - with the [CLI installed](https://fly.io/terminal): `fly help`
-  - No need to set up the Credit card, we will use free tier
-- [Docker](https://www.docker.com/get-started)
-  - `docker --version`
-
 ### How the labs work
 
 Each lab will have the following sections:
@@ -82,44 +73,26 @@ Each lab will contain a link to the next one. Start from **"Lab 1"** and move th
 
 ##### Catching up with missed labs
 
-If you fall behind or join late, we provide migrations that would bring your repository up to date with desired lab. To use the migrarions follow the next steps:
-1. Install `@nrwl/nx-workshop` package as dev dependency (e.g. `yarn add -D @nrwl/nx-workshop`). If you finished [Lab 3.1 - Migrations](docs/lab3.1/LAB.md) then you should already have it installed.
+If you fall behind or join late, we provide migrations that would bring your repository up to date with desired lab. To use the migrations follow the next steps:
+1. Install `@nrwl/nx-workshop-node` package as dev dependency (e.g. `yarn add -D @nrwl/nx-workshop-node`). If you finished [Lab 4 - Migrations](docs/lab4/LAB.md) then you should already have it installed.
 2. Run the generator with one of the following options:
    - Provide `lab` you want to complete: `nx g @nrwl/nx-workshop:complete-labs --lab=5` or
    - Use `from` range to finish until end: `nx g @nrwl/nx-workshop:complete-labs --from=2`
    - Use `to` range to catch up with given lab: `nx g @nrwl/nx-workshop:complete-labs --to=5`
    - Use `from/to` range to catch up with several labs in between: `nx g @nrwl/nx-workshop:complete-labs --from=2 --from=7`
    - Use `option` to specify if you want track 1 or track 2: `nx g @nrwl/nx-workshop:complete-labs --from=19 --option=option2`
-3. Finnally, run the the migrations `npx nx migrate --run-migrations` to have that code generated
+3. Finally, run the the migrations `npx nx migrate --run-migrations` to have that code generated
 
-| Day 1 |
-| - |
 | 👩‍💻 [Lab 1 - Generate an empty workspace](docs/lab1/LAB.md) |
-| ⚗️ [Lab 2 - Generate an Angular app](docs/lab2/LAB.md) |
+| ⚗️ [Lab 2 - Generate a Node API](docs/lab2/LAB.md) |
 | 🏃 [Lab 3 - Executors](docs/lab3/LAB.md) |
-| 🚂 [Lab 3.1 - Migrations](docs/lab3.1/LAB.md) |
-| 🧩 [Lab 4 - Generate a component lib](docs/lab4/LAB.md) |
-| 🤝 [Lab 5 - Generate a utility lib](docs/lab5/LAB.md) |
-| 🗺️ [Lab 6 - Generate a route lib](docs/lab6/LAB.md) |
-| 🏭 [Lab 7 - Add a NestJS API](docs/lab7/LAB.md) |
-| 🎨 [Lab 8 - Displaying a full game in the routed game-detail component](docs/lab8/LAB.md) |
-| 📏 [Lab 9 - Generate a type lib that the API and frontend can share](docs/lab9/LAB.md) |
-| 📖 [Lab 10 - Generate Storybook stories for the shared ui component](docs/lab10%20-%20bonus/LAB.md) |
-| 🧪 [Lab 11 - E2E test the shared component](docs/lab11%20-%20bonus/LAB.md) |
-
-| Day 2 |
-| - |
-| 🛑 [Lab 12 - Module boundaries](docs/lab12/LAB.md) |
-| ⚙️ [Lab 13 - Plugins and Workspace Generators - Intro](docs/lab13/LAB.md) |
-| 🧵 [Lab 14 - Plugins and Workspace Generators - Modifying files](docs/lab14/LAB.md) |
-| 🔎 [Lab 15 - Setting up CI](docs/lab15/LAB.md) |
-| ☁️ [Lab 16 - Distributed caching](docs/lab16/LAB.md) |
-| 🤖 [Lab 17 - NxCloud GitHub bot](docs/lab17/LAB.md) |
-| 🏎️ [Lab 18 - Run-Commands and deploying the frontend](docs/lab18/LAB.md) |
-
-| Option 1 - React frontends and more custom generators practice              | Option 2 - Fly.io API deployments                           |
-| --------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| 🧭 [Lab 19 - Creating and deploying a 2nd frontend](docs/lab19-alt/LAB.md)  | 🚀 [Lab 19 - Deploying the API with custom executor](docs/lab19/LAB.md)                      |
-| ⛱️ [Lab 20 - Mock Store](docs/lab20-alt/LAB.md)                             | 🪢 [Lab 20 - Connecting the frontend and backend](docs/lab20/LAB.md)    |
-| 🪁 [Lab 21 - Setting up CD for automatic deployment](docs/lab21-alt/LAB.md) | 🎈 [Lab 21 - Setting up CD for automatic deployment](docs/lab21/LAB.md) |
-| 💈 [Lab 22 - Deploying only what changed](docs/lab22/LAB.md)                | 💈 [Lab 22 - Deploying only what changed](docs/lab22/LAB.md)            |
+| 🚂 [Lab 4 - Migrations](docs/lab4/LAB.md) |
+| 🧩 [Lab 5 - Generate an auth library](docs/lab5/LAB.md) |
+| 🏭 [Lab 6 - Add a Node CLI](docs/lab6/LAB.md) |
+| 📏 [Lab 7 - Generate a type lib that the API and CLI can share](docs/lab7/LAB.md) |
+| 🛑 [Lab 8 - Module boundaries](docs/lab8/LAB.md) |
+| ⚙️ [Lab 9 - Workspace Plugins and Generators - Intro](docs/lab9/LAB.md) |
+| 🧵 [Lab 10 - Workspace Plugins and Generators - Modifying files](docs/lab10/LAB.md) |
+| 🔎 [Lab 11 - Setting up CI](docs/lab11/LAB.md) |
+| ☁️ [Lab 12 - Distributed caching](docs/lab12/LAB.md) |
+| 🔍 [Lab 13 - NxCloud GitHub bot](docs/lab13/LAB.md) |

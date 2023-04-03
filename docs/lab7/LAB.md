@@ -1,21 +1,19 @@
-# 💻 Lab 7 - Add a NestJS API
+# 💻 Lab 7 - Generate a type lib that the API and CLI can share
 
-###### ⏰ Estimated time: 10-15 minutes
+###### ⏰ Estimated time: 15 minutes
+
 <br />
 
-Up until now we've had a single app in our repository, and a few other libs that it uses.
+Now our project graph looks a bit disconnected. The CLI and the API still do not have anything in common. The power of Nx libraries is that they can be shared among any number of projects.
 
-But remember how we created that `fake-api` way back in the second lab, that only our `store` app can access?
-
-Our new routed component suddenly needs access to the games as well, so in this lab we'll be adding a completely new app, this time on the backend, as an API. And we'll use the `@nrwl/nest` package to easily generate everything we need.
-
-You do not need to be familiar with Nest (and you can use the `@nrwl/express:app` plugin instead if you wish). All the NestJS specific code for serving the games is provided in the solution.
+We'll look at creating libs to store Typescript interfaces and then we'll use the Nx **Move** generator to move that library around our project, with minimal effort.
 <br /><br />
 
 ## 📚 Learning outcomes:
 
-- **Explore other plugins in the Nx ecosystem**
-<br /><br /><br />
+- **Explore other real-world examples of creating shared libs for a specific project**
+- **Learn to use the `move` generator**
+  <br /><br /><br />
 
 ## 📲 After this workshop, you should have:
 
@@ -26,29 +24,115 @@ You do not need to be familiar with Nest (and you can use the `@nrwl/express:app
 
 <details>
   <summary>File structure</summary>
-  <img src="../assets/lab7_directory-structure.png" height="700" alt="lab7 file structure">
+  <img src="../assets/lab9_directory-structure.png" height="700" alt="lab9 file structure">
 </details>
 <br />
 
 ## 🏋️‍♀️ Steps:
 
-1. **Stop any running `nx serve` instance**
+1. **Stop serving** the API
    <br /><br />
-2. **Install `@nrwl/nest`**
-   <br /><br />
-3. **Generate a new NestJS app**, called `api`
+2. **Generate a new `@nrwl/js` lib** called `util-interface` inside the `libs/api` folder.
 
-   ⚠️ Make sure you instruct the generator to configure a proxy from the frontend `store` to the new `api` service (use `--help` to see the available options)
+   ⚠️ It's **important** that we create it in the `/api` folder for now
    <br /><br />
-4. **Update `proxy.conf.json`** in `apps/store` to point to port `3333`
-5. **Copy the code** from the `fake api` to the new Nest `apps/api/src/app/`[app.service.ts](../../examples/lab7/apps/api/src/app/app.service.ts) and expose the `getGames()` and `getGame()` methods
+
+3. **Create your `Game` interface**: see `libs/api/util-interface/src/lib/`[api-util-interface.ts](../../examples/lab7/libs/api/util-interface/src/lib/api-util-interface.ts)
    <br /><br />
-6. **Update the Nest [app.controller.ts](../../examples/lab7/apps/api/src/app/app.controller.ts)** to use the new methods from the service
+4. **Import it** in the API repository file: `apps/api/src/app/games.repository.ts`
+
+   ⚠️ You might need to restart the Typescript compiler in your editor
+
+   <details>
+   <summary>🐳 Hint</summary>
+
+   ```typescript
+   import { Game } from '@bg-hoard/api/util-interface';
+   const games: Game[] = [...];
+   ```
+
+   </details>
+   <br />
+
+5. **Build the API** and make sure there are no errors
+
+   <details>
+   <summary>🐳 Hint</summary>
+
+   ```shell
+   nx build api
+   ```
+
+   </details>
+   <br />
+
+6. **Inspect the project graph**
    <br /><br />
-7. Let's now **inspect the project graph**!
+7. Make sure to **commit everything** before proceeding!
    <br /><br />
-8. **Inspect what changed** from the last time you committed, then **commit your changes**\
-   <br /><br />
+
+---
+
+Our cli makes calls to the API, but it's currently typed to `any` - so our component has no idea about the shape of the objects it'll get back!
+
+Let's fix that - we already have a `Game` interface in a lib. But it's nested in the `api` folder - we need to move it out to the root `libs/` folder so any project can use it!
+
+---
+
+8.  Use the `@nrwl/workspace:move` generator to **move the interface lib** created above into the root `/libs` folder
+
+    ⚠️ Make sure you use the `--dry-run` flag until you're confident your command is correct
+
+     <details>
+     <summary>🐳 Hint 1</summary>
+     <img src="../assets/lab2_cmds.png" alt="Nx generate cmd structure">
+     </details>
+
+     <details>
+     <summary>🐳 Hint 2</summary>
+
+    Use the `--help` command to figure out how to target a specific **project**
+    Alternatively, check out the [docs](https://nx.dev/packages/workspace/generators/move)
+
+     </details>
+
+     <details>
+
+     <summary>🐳 Hint 3</summary>
+
+    Your library name is `api-util-interface` - to move it to root, its new name needs to be `util-interface`
+
+     </details>
+    <br />
+
+2.  We can now **import it in the CLI** and use it when making the http request:
+
+     <details>
+     <summary>🐳 Hint</summary>
+
+    CLI main file: `apps/cli/src/main.ts`
+
+   ```typescript
+   import { Game } from '@bg-hoard/util-interface';
+
+   // ...
+
+   fetch(fetchUrl).then(response => response.json().then((val: Game[]) => {
+      console.log(val.map(game => `${game.name}: ${game.description}`).join('\\n'));
+   }));
+    ```
+
+     </details>
+
+    ⚠️ Open `apps/api/src/app/games.repository.ts`. Notice how we didn't have to update the imports in the API. The `move` generator took care of that for us!
+    <br /><br />
+
+3.  **Trigger a build** of both the store and the API projects and make sure it passes
+    <br /><br />
+4.  **Inspect the project graph**
+    <br /><br />
+5.  **Inspect what changed** from the last time you committed, then **commit your changes**
+    <br /><br />
 
 ---
 
@@ -56,4 +140,4 @@ You do not need to be familiar with Nest (and you can use the `@nrwl/express:app
 
 ---
 
-[➡️ Next lab ➡️](../lab8/LAB.md)
+[➡️ Next lab ➡️](../lab10%20-%20bonus/LAB.md)

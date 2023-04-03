@@ -1,3 +1,11 @@
-##### Generate a new NestJS API app, and configure the proxy to the `store` project
+##### Generate a new type lib for the API
 
-`nx generate @nrwl/nest:application api --frontendProject=store`
+```shell
+nx generate @nrwl/workspace:lib util-interface --directory=api
+```
+
+##### Use the `move` generator to move a nested lib to root
+
+```shell
+nx generate @nrwl/workspace:move --projectName=api-util-interface util-interface
+```
