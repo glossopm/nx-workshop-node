@@ -13,12 +13,12 @@
     "migrations": "./migrations.json"
   },
   "dependencies": {
-    "@nrwl/workspace": "15.8.8",
-    "@nrwl/node": "15.8.8",
-    "@nrwl/devkit": "15.8.8",
+    "@nrwl/workspace": "15.9.2",
+    "@nrwl/node": "15.9.2",
+    "@nrwl/devkit": "15.9.2",
     "@nrwl/nx-cloud": "latest",
-    "@nrwl/nx-plugin": "15.8.8",
-    "@nrwl/storybook": "15.8.8",
+    "@nrwl/nx-plugin": "15.9.2",
+    "@nrwl/storybook": "15.9.2",
     "cors": "*",
     "node-fetch": "^2.x",
     "surge": "*",
