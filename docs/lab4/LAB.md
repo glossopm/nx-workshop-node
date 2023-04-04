@@ -16,18 +16,6 @@ We'll learn about migration generators and use them to jump to a specific lab in
 - **Modify the migrations.json file**
   <br /><br /><br />
 
-## 📲 After this workshop, you should have:
-
-<details>
-  <summary>App Screenshot</summary>
-  <img src="../assets/lab3_screenshot.png" width="500" alt="screenshot of lab3 result">
-</details>
-
-<details>
-  <summary>File structure</summary>
-  <img src="../assets/lab3_directory-structure.png" height="700" alt="lab3 file structure">
-</details>
-
 ## 🏋️‍♀️ Steps:
 
 1. Install an old version of the `@nrwl/nx-workshop-node` npm package: `nx-workshop-node@0.0.1`

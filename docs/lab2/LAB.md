@@ -12,12 +12,7 @@ In this lab we'll generate a Node API within the new monorepo.
 - **Get familiar with generating new apps within your workspace using the Nx CLI**
   <br /><br /><br />
 
-## 📲 After this workshop, your app should look similar to this:
-
-<details>
-  <summary>App Screenshot</summary>
-  <img src="../assets/lab2_result.png" width="500" alt="screenshot of lab2 result">
-</details>
+## 📲 After this workshop, your repo should look similar to this:
 
 <details>
   <summary>File structure</summary>

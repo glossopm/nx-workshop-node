@@ -11,19 +11,6 @@ Let's create a library to handle all the authentication logic.  For this worksho
 
 - **Get familiar with generating project specific, framework agnostic utility libs**
 
-## 📲 After this workshop, you should have:
-
-<details>
-  <summary>App Screenshot</summary>
-  <img src="../assets/lab5_screenshot.png" width="500" alt="screenshot of lab5 result">
-</details>
-
-<details>
-  <summary>File structure</summary>
-  <img src="../assets/lab5_directory-structure.png" height="700" alt="lab5 file structure">
-</details>
-<br />
-
 ## 🏋️‍♀️ Steps:
 
 1. **Stop the `nx serve`** if it is still running

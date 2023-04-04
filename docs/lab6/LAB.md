@@ -12,14 +12,6 @@ We'll make another `@nrwl/node` application, but this time invoke it as a script
 - **Create a node CLI**
 <br /><br /><br />
 
-## 📲 After this workshop, you should have:
-
-<details>
-  <summary>File structure</summary>
-  <img src="../assets/lab6_directory-structure.png" height="700" alt="lab6 file structure">
-</details>
-<br />
-
 ## 🏋️‍♀️ Steps:
 
 1. **Stop any running `nx serve` instance**

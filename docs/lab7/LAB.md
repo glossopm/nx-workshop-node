@@ -15,19 +15,6 @@ We'll look at creating libs to store Typescript interfaces and then we'll use th
 - **Learn to use the `move` generator**
   <br /><br /><br />
 
-## 📲 After this workshop, you should have:
-
-<details>
-  <summary>App Screenshot</summary>
-  No change in how the app looks!
-</details>
-
-<details>
-  <summary>File structure</summary>
-  <img src="../assets/lab9_directory-structure.png" height="700" alt="lab9 file structure">
-</details>
-<br />
-
 ## 🏋️‍♀️ Steps:
 
 1. **Stop serving** the API
