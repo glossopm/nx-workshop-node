@@ -1,4 +1,4 @@
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx-workshop/master/docs/assets/nxtitle.png"
+<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx-workshop-node/master/docs/assets/nxtitle.png"
 width="100%" alt="Nx Workshop - Building a Board Game Store"></p>
 
 In this workshop we'll be building a store for a fictional board game company called "The Board Game Hoard".
@@ -76,11 +76,11 @@ Each lab will contain a link to the next one. Start from **"Lab 1"** and move th
 If you fall behind or join late, we provide migrations that would bring your repository up to date with desired lab. To use the migrations follow the next steps:
 1. Install `@nrwl/nx-workshop-node` package as dev dependency (e.g. `yarn add -D @nrwl/nx-workshop-node`). If you finished [Lab 4 - Migrations](docs/lab4/LAB.md) then you should already have it installed.
 2. Run the generator with one of the following options:
-   - Provide `lab` you want to complete: `nx g @nrwl/nx-workshop:complete-labs --lab=5` or
-   - Use `from` range to finish until end: `nx g @nrwl/nx-workshop:complete-labs --from=2`
-   - Use `to` range to catch up with given lab: `nx g @nrwl/nx-workshop:complete-labs --to=5`
-   - Use `from/to` range to catch up with several labs in between: `nx g @nrwl/nx-workshop:complete-labs --from=2 --from=7`
-   - Use `option` to specify if you want track 1 or track 2: `nx g @nrwl/nx-workshop:complete-labs --from=19 --option=option2`
+   - Provide `lab` you want to complete: `nx g @nrwl/nx-workshop-node:complete-labs --lab=5` or
+   - Use `from` range to finish until end: `nx g @nrwl/nx-workshop-node:complete-labs --from=2`
+   - Use `to` range to catch up with given lab: `nx g @nrwl/nx-workshop-node:complete-labs --to=5`
+   - Use `from/to` range to catch up with several labs in between: `nx g @nrwl/nx-workshop-node:complete-labs --from=2 --from=7`
+   - Use `option` to specify if you want track 1 or track 2: `nx g @nrwl/nx-workshop-node:complete-labs --from=19 --option=option2`
 3. Finally, run the the migrations `npx nx migrate --run-migrations` to have that code generated
 
 | 👩‍💻 [Lab 1 - Generate an empty workspace](docs/lab1/LAB.md) |

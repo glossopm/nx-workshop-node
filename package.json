@@ -46,7 +46,6 @@
     "@nrwl/nest": "15.9.2",
     "@nrwl/node": "15.9.2",
     "@nrwl/nx-plugin": "15.9.2",
-    "@nrwl/nx-workshop": "^0.4.11",
     "@nrwl/storybook": "15.9.2",
     "@nrwl/webpack": "15.9.2",
     "@nrwl/workspace": "15.9.2",
