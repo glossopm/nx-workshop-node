@@ -83,6 +83,8 @@ If you fall behind or join late, we provide migrations that would bring your rep
    - Use `option` to specify if you want track 1 or track 2: `nx g @nrwl/nx-workshop-node:complete-labs --from=19 --option=option2`
 3. Finally, run the the migrations `npx nx migrate --run-migrations` to have that code generated
 
+| Labs |
+| - |
 | 👩‍💻 [Lab 1 - Generate an empty workspace](docs/lab1/LAB.md) |
 | ⚗️ [Lab 2 - Generate a Node API](docs/lab2/LAB.md) |
 | 🏃 [Lab 3 - Executors](docs/lab3/LAB.md) |
