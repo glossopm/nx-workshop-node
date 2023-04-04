@@ -16,7 +16,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@bg-hoard/nx-workshop-node": ["libs/nx-workshop-node/src/index.ts"]
+      "@nrwl/nx-workshop-node": ["libs/nx-workshop-node/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -8,12 +8,10 @@ We're going to be using [Nx](https://nx.dev/) and some of its plugins to acceler
 Some of the things you'll learn:
 
 - Generating a pristine **Nx workspace**
-- Generating frontend Angular **apps** and **backend APIs** inside your workspace, with pre-configured proxies
+- Generating Node **CLIs** and **backend APIs** inside your workspace
 - Creating **shared libs** for re-using code
-- Generating new **routed components** with all the lazily loaded routes pre-configured by Nx and ready to go
 - How to **organize code** in a monorepo
 - Easily **move libs** around your folder structure
-- Creating **Storybook stories** and **E2E Cypress tests** for your components
 - How to **set boundaries** between the different scopes in your project
 - Write automated source **code generators** for common tasks in your workspace
 - Set-up **CI workflows** for your Pull Requests
@@ -22,21 +20,15 @@ Some of the things you'll learn:
 - Write advanced deployment targets using the **run-commands executor**
 - Set up **Continuous Deployment** systems that deploy only the **affected projects**
 
-To help you understand how to apply some of these lessons in your own projects, we'll try to build a more "real-world" example. However, because of the time constrains and to make sure we get to cover as much material as possible, we'll provide you with all the code for any "non-Nx" work you need to do (like styling and configuring Angular routes) - so you can focus on learning to use Nx to its full potential.
-
----
-
-This is what we'll build:
-
-  <img src="docs/assets/game-demo.gif" height="700" alt="lab4 file structure">
+To help you understand how to apply some of these lessons in your own projects, we'll try to build a more "real-world" example. However, because of the time constrains and to make sure we get to cover as much material as possible, we'll provide you with all the code for any "non-Nx" work you need to do - so you can focus on learning to use Nx to its full potential.
 
 ### Pre-requisites
 
-Nx has support for a lot of platforms, but in this workshop we'll be using mainly Angular. While all the code for any Angular specific work will be provided, it will help if you have some experience with the Angular ecosystem.
+Nx has support for a lot of platforms, but in this workshop we'll be using mainly Node.
 
 Make sure you have the following installed:
 
-- Node.js version 14.0.0 and up
+- Node.js version 16.0.0 and up
   - `node --version`
 - [Yarn](https://classic.yarnpkg.com/en/docs/install/)
   - `yarn --version`

@@ -1,5 +1,5 @@
 {
-  "name": "nx-workshop-node",
+  "name": "@nrwl/nx-workshop-node",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/nx-workshop-node/src",
   "projectType": "library",

@@ -23,5 +23,5 @@
     }
   },
   "tags": [],
-  "implicitDependencies": ["nx-workshop-node"]
+  "implicitDependencies": ["@nrwl/nx-workshop-node"]
 }
