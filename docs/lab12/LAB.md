@@ -97,4 +97,4 @@ capabilities. Let's enable distributed caching.
 
 ---
 
-[➡️ Next lab ➡️](../lab17/LAB.md)
+[➡️ Next lab ➡️](../lab13/LAB.md)

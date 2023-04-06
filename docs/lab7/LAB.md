@@ -9,13 +9,13 @@ Now our project graph looks a bit disconnected. The CLI and the API still do not
 We'll look at creating libs to store Typescript interfaces and then we'll use the Nx **Move** generator to move that library around our project, with minimal effort.
 <br /><br />
 
-## 📚 Learning outcomes:
+## 📚 Learning outcomes
 
 - **Explore other real-world examples of creating shared libs for a specific project**
 - **Learn to use the `move` generator**
   <br /><br /><br />
 
-## 🏋️‍♀️ Steps:
+## 🏋️‍♀️ Steps
 
 1. **Stop serving** the API
    <br /><br />
@@ -24,7 +24,7 @@ We'll look at creating libs to store Typescript interfaces and then we'll use th
    ⚠️ It's **important** that we create it in the `/api` folder for now
    <br /><br />
 
-3. **Create your `Game` interface**: see `libs/api/util-interface/src/lib/`[api-util-interface.ts](../../examples/lab7/libs/api/util-interface/src/lib/api-util-interface.ts)
+3. **Create your `Game` interface**: in `libs/api/util-interface/src/lib/api-util-interface.ts` ([code](../../examples/lab7/api/util-interface/src/lib/api-util-interface.ts))
    <br /><br />
 4. **Import it** in the API repository file: `apps/api/src/app/games.repository.ts`
 
@@ -66,59 +66,62 @@ Let's fix that - we already have a `Game` interface in a lib. But it's nested in
 
 ---
 
-8.  Use the `@nrwl/workspace:move` generator to **move the interface lib** created above into the root `/libs` folder
+8. Use the `@nrwl/workspace:move` generator to **move the interface lib** created above into the root `/libs` folder
 
-    ⚠️ Make sure you use the `--dry-run` flag until you're confident your command is correct
+   ⚠️ Make sure you use the `--dry-run` flag until you're confident your command is correct
 
-     <details>
-     <summary>🐳 Hint 1</summary>
-     <img src="../assets/lab2_cmds.png" alt="Nx generate cmd structure">
-     </details>
+    <details>
+    <summary>🐳 Hint 1</summary>
+    <img src="../assets/lab2_cmds.png" alt="Nx generate cmd structure">
+    </details>
 
-     <details>
-     <summary>🐳 Hint 2</summary>
+    <details>
+    <summary>🐳 Hint 2</summary>
 
-    Use the `--help` command to figure out how to target a specific **project**
-    Alternatively, check out the [docs](https://nx.dev/packages/workspace/generators/move)
+   Use the `--help` command to figure out how to target a specific **project**
+   Alternatively, check out the [docs](https://nx.dev/packages/workspace/generators/move)
 
-     </details>
+    </details>
 
-     <details>
+    <details>
 
-     <summary>🐳 Hint 3</summary>
+    <summary>🐳 Hint 3</summary>
 
-    Your library name is `api-util-interface` - to move it to root, its new name needs to be `util-interface`
+   Your library name is `api-util-interface` - to move it to root, its new name needs to be `util-interface`
 
-     </details>
-    <br />
+    </details>
+   <br />
 
-2.  We can now **import it in the CLI** and use it when making the http request:
+9. We can now **import it in the CLI** and use it when making the http request:
 
-     <details>
-     <summary>🐳 Hint</summary>
+    <details>
+    <summary>🐳 Hint</summary>
 
-    CLI main file: `apps/cli/src/main.ts`
+   CLI main file: `apps/cli/src/main.ts`
 
    ```typescript
    import { Game } from '@bg-hoard/util-interface';
 
    // ...
 
-   fetch(fetchUrl).then(response => response.json().then((val: Game[]) => {
-      console.log(val.map(game => `${game.name}: ${game.description}`).join('\\n'));
-   }));
-    ```
+   fetch(fetchUrl).then((response) =>
+     response.json().then((val: Game[]) => {
+       console.log(
+         val.map((game) => `${game.name}: ${game.description}`).join('\\n')
+       );
+     })
+   );
+   ```
+    </details>
 
-     </details>
-
-    ⚠️ Open `apps/api/src/app/games.repository.ts`. Notice how we didn't have to update the imports in the API. The `move` generator took care of that for us!
+     ⚠️ Open `apps/api/src/app/games.repository.ts`. Notice how we didn't have to update the imports in the API. The `move` generator took care of that for us!
     <br /><br />
 
-3.  **Trigger a build** of both the store and the API projects and make sure it passes
+10. **Trigger a build** of both the store and the API projects and make sure it passes
     <br /><br />
-4.  **Inspect the project graph**
+11. **Inspect the project graph**
     <br /><br />
-5.  **Inspect what changed** from the last time you committed, then **commit your changes**
+12. **Inspect what changed** from the last time you committed, then **commit your changes**
     <br /><br />
 
 ---

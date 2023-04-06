@@ -31,4 +31,4 @@ We'll make another `@nrwl/node` application, but this time invoke it as a script
 
 ---
 
-[➡️ Next lab ➡️](../lab8/LAB.md)
+[➡️ Next lab ➡️](../lab7/LAB.md)
